@@ -1,0 +1,28 @@
+version: "3.3"
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/dockerfile
+    ports:
+      - 8098:80
+    links:
+      - fpm
+    volumes:
+      - ./:/var/www/my_cms
+  fpm:
+    build:
+      context: .
+      dockerfile: docker/fpm/dockerfile
+    volumes:
+      - ./:/var/www/my_cms
+    links:
+      - mysql
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 33061:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=service
