@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'my_cms\\' => array($baseDir . '/core'),
+    'core\\' => array($baseDir . '/core'),
     'app\\' => array($baseDir . '/app'),
+    'Whoops\\' => array($vendorDir . '/filp/whoops/src/Whoops'),
+    'Psr\\Log\\' => array($vendorDir . '/psr/log/src'),
 );

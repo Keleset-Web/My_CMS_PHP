@@ -1,12 +1,11 @@
 {
   "autoload": {
     "psr-4": {
-      "my_cms\\" : "core",
+      "core\\" : "core",
       "app\\" : "app"
     }
   },
-  "require": {
-
+  "require-dev": {
+    "filp/whoops": "^2.14"
   }
-
 }
