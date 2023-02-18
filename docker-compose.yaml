@@ -17,6 +17,8 @@ services:
       dockerfile: docker/fpm/dockerfile
     volumes:
       - ./:/var/www/my_cms
+    env_file:
+      - .env
     links:
       - mysql
   mysql:
@@ -26,3 +28,25 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=service
+  # Для того, чтобы узнать свой адрес, открой страницу
+  # @link http://localhost:4040/
+  ngrok:
+    restart: always
+    image: wernight/ngrok
+    links:
+      - nginx
+    environment:
+      - NGROK_DEBUG=true
+      - NGROK_BINDTLS=true
+      - NGROK_PROTOCOL=HTTP
+      # Все запросы будут перенаправлены в services.nginx
+      - NGROK_LOOK_DOMAIN=nginx
+      # Авторизация в ngrok
+      # @see docs/ngrok.md
+      - NGROK_AUTH=${NGROK_AUTH:-}
+    ports:
+      - target: 4040
+        published: 4040
+        protocol: tcp
+    depends_on:
+      - nginx
