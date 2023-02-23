@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: docker/nginx/dockerfile
     ports:
-      - 8098:80
+      - "8098:80"
     links:
       - fpm
     volumes:
@@ -19,12 +19,14 @@ services:
       - ./:/var/www/my_cms
     env_file:
       - .env
+    depends_on:
+      - mysql
     links:
       - mysql
   mysql:
     image: mysql:5.7
     ports:
-      - 33061:3306
+      - "33061:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=service
